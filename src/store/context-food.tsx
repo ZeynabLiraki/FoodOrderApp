@@ -6,7 +6,7 @@ import {
   MealSelected,
   OrderDetails,
 } from "../types/contextFood";
-
+ 
 export const FoodContext = createContext<InitialContextValue | null>(null);
 
 function foodReducerFn(state: OrderDetails, action: FoodAction) {
@@ -22,8 +22,8 @@ function foodReducerFn(state: OrderDetails, action: FoodAction) {
       } else {
         const existingMeal = { ...totalSelectedMeals[indextItem] };
         const updatedMeal = {
-          ...existingMeal,
-          quantity: existingMeal!.quantity! + 1,
+          ...totalSelectedMeals[indextItem],
+          quantity: existingMeal.quantity! + 1,
         };
         totalSelectedMeals[indextItem] = updatedMeal;
       }
@@ -32,7 +32,7 @@ function foodReducerFn(state: OrderDetails, action: FoodAction) {
     case "UPDATE_CART": {
       const totalSelectedMeals: OrderDetails = [...state];
       const indextItem: number = state.findIndex(
-        (item) => item.id === action.payload.item.id
+        (item) => item.id === action.payload.id
       );
 
       const updatedItem = { ...totalSelectedMeals[indextItem] };
@@ -65,10 +65,10 @@ export default function FoodContextProvider({
     });
   };
 
-  const updateCartItem = (item: MealSelected, value: number) => {
+  const updateCartItem = (id: string, value: number) => {
     foodDistatch({
       type: "UPDATE_CART",
-      payload: { item, value },
+      payload: { id, value },
     });
   };
 

@@ -6,6 +6,7 @@ import { TotalMeals } from "../services/Urls";
 
 export default function Products() {
   const [totalMealsList, setTotalMealsList] = useState<TotalMealsProps>([]);
+
   useEffect(() => {
     async function FetchTotalMeal() {
       const response = (await instanceFood.get(TotalMeals)) as TotalMealsProps;
@@ -15,11 +16,9 @@ export default function Products() {
   }, []);
 
   return (
-    <ul className="meals">
+    <ul id="meals">
       {totalMealsList.map((meal) => (
-        <li key={meal.id}>
-          <Product {...meal} />
-        </li>
+        <Product key={meal.id} {...meal} />
       ))}
     </ul>
   );

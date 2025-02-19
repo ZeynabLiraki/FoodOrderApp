@@ -12,7 +12,7 @@ export type OrderDetails = MealSelected[];
 export type InitialContextValue = {
   orderDetails: OrderDetails;
   addToCart: (item: MealSelected) => void;
-  updateCartItem: (item: MealSelected, value: number) => void;
+  updateCartItem: (id: string, value: number) => void;
 };
 
 export type FoodContextProviderProps = {
@@ -29,9 +29,21 @@ export type AddToCartAction = {
 export type UpdateCartAction = {
   type: "UPDATE_CART";
   payload: {
-    item: MealSelected;
+    id: string;
     value: number;
   };
 };
 
 export type FoodAction = AddToCartAction | UpdateCartAction;
+
+export type UserProgressContextProps = {
+  progress: string;
+  showCart: () => void;
+  hideCart: () => void;
+  showCheckout: () => void;
+  hideCheckout: () => void;
+};
+
+export type UserProgressContextProviderProps = {
+  children: ReactNode;
+};

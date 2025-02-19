@@ -1,5 +1,7 @@
+import { BaseURL } from "../services/Urls";
 import { useFoodContext } from "../store/context-food";
 import { MealProps } from "../types/modules";
+import { currencyFormatter } from "../utild/formatting";
 import Button from "./UI/Button";
 
 export default function Product({
@@ -16,14 +18,20 @@ export default function Product({
   };
 
   return (
-    <div className="meal-item">
-      <img src={image} alt={name} />
-      <h3>{name}</h3>
-      <p className="meal-item-price">$ {price}</p>
-      <p className="meal-item-description">{description}</p>
-      <Button className="meal-item-actions" onClick={handleAddTocart}>
-        Add to Cart
-      </Button>
-    </div>
+    <li className="meal-item" key={id}>
+      <article>
+        <img src={`${BaseURL}/${image}`} alt={name} />
+        <div>
+          <h3>{name}</h3>
+          <p className="meal-item-price">{currencyFormatter.format(+price)}</p>
+          <p className="meal-item-description">{description}</p>
+        </div>
+        <p className="meal-item-actions">
+          <Button textOnly={false} onClick={handleAddTocart}>
+            Add to Cart
+          </Button>
+        </p>
+      </article>
+    </li>
   );
 }
