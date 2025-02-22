@@ -260,3 +260,21 @@ h1 {
     transform: translateY(0);
   }
 }
+
+.error{
+  border-radius: 1rem;
+  background-color: rgb(245, 189, 197);
+  
+}
+.error h1{
+  color: brown;
+  padding:1rem ;
+  font-weight: bold;
+}
+
+.error p{
+  color: rgb(182, 46, 46);
+  padding-bottom:1rem ;
+  padding-left: 1rem;
+  font-weight: bold;
+}

@@ -1,7 +1,7 @@
 import { createContext, use, useState } from "react";
 import {
   UserProgressContextProps,
-  UserProgressContextProviderProps,
+  UserProgressContextProviderProps
 } from "../types/contextFood";
 
 const defaultValue: UserProgressContextProps = {
@@ -9,14 +9,15 @@ const defaultValue: UserProgressContextProps = {
   showCart: () => {},
   hideCart: () => {},
   showCheckout: () => {},
-  hideCheckout: () => {},
+  hideCheckout: () => {}
 };
 
-export const UserProgressContext =
-  createContext<UserProgressContextProps>(defaultValue);
+export const UserProgressContext = createContext<UserProgressContextProps>(
+  defaultValue
+);
 
 export default function UserProgressContextProvider({
-  children,
+  children
 }: UserProgressContextProviderProps) {
   const [userProgress, setUserProgress] = useState<string>("");
 
@@ -38,7 +39,7 @@ export default function UserProgressContextProvider({
     showCart,
     hideCart,
     showCheckout,
-    hideCheckout,
+    hideCheckout
   };
   return (
     <UserProgressContext.Provider value={contextValue}>

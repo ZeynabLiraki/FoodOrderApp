@@ -6,20 +6,19 @@ export default function Modal({
   children,
   className = "",
   open,
-  modalActions,
   onClose
 }: ModalProps) {
   const dialogRef = useRef<HTMLDialogElement | null>(null);
 
   useEffect(() => {
-    if (open) dialogRef.current?.showModal();
-    // return () => dialogRef.current?.close();
+    const modal= dialogRef.current;
+    if (open) {modal?.showModal();}
+   return () => modal?.close();
   }, [open]);
 
   return createPortal(
     <dialog ref={dialogRef} className={`modal ${className}`} onClose={onClose}>
       {children}
-      <form method="dialog">{modalActions}</form>
     </dialog>,
     document.getElementById("modal")!
   );

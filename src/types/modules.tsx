@@ -4,6 +4,7 @@ import {
   ReactNode,
   type Ref,
 } from "react";
+import { OrderDetails } from "./contextFood";
 
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   textOnly: boolean;
@@ -18,7 +19,7 @@ export type ProductProps = {
   description: string;
 };
 
-export type MealProps = {
+export interface MealProps  {
   description: string;
   id: string;
   image: string;
@@ -53,10 +54,15 @@ export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   label: string;
 };
 
-export type InitialFormState = {
-  fullName: string;
+export interface InitialFormState  {
+  name: string;
   email: string;
   street: string;
-  postalCode: string;
+  ['postal-code']: string;
   city: string;
 };
+
+export interface Order{
+  items: OrderDetails
+  customer:InitialFormState,
+}

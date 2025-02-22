@@ -1,6 +1,6 @@
 import { useFoodContext } from "../../store/context-food";
 import { type MealSelected } from "../../types/contextFood";
-import { currencyFormatter } from "../../utild/formatting";
+import { currencyFormatter } from "../../utils/formatting";
 import Button from "../UI/Button";
 export default function CartItem({ id, name, price, quantity }: MealSelected) {
   const { updateCartItem } = useFoodContext();

@@ -1,7 +1,7 @@
 import { BaseURL } from "../services/Urls";
 import { useFoodContext } from "../store/context-food";
 import { MealProps } from "../types/modules";
-import { currencyFormatter } from "../utild/formatting";
+import { currencyFormatter } from "../utils/formatting";
 import Button from "./UI/Button";
 
 export default function Product({

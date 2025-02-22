@@ -1,6 +1,6 @@
 import { useFoodContext } from "../../store/context-food";
 import { useProgressContext } from "../../store/user-progress-context";
-import { currencyFormatter } from "../../utild/formatting";
+import { currencyFormatter } from "../../utils/formatting";
 import Button from "../UI/Button";
 import Modal from "../UI/Modal";
 import CartItem from "./CartItem";
@@ -8,7 +8,6 @@ import CartItem from "./CartItem";
 export default function Cart() {
   const { orderDetails } = useFoodContext();
   const { progress, hideCart, showCheckout } = useProgressContext();
-  console.log("progress:", progress, progress === "cart");
 
   const totalPrice = orderDetails.reduce((acc, item) => {
     return acc + Number(item.price) * item.quantity!;
@@ -18,44 +17,28 @@ export default function Cart() {
     hideCart();
   };
 
-  const handleCheckout = () => {
+  const handleShowCheckout = () => {
     showCheckout();
   };
 
-  let modalActions = (
-    <p className="cart-total">
-      <Button textOnly onClick={handleHideCart}>
-        Close
-      </Button>
-    </p>
-  );
-  if (orderDetails.length > 0) {
-    modalActions = (
+  return (
+    <Modal open={progress === "cart"} className="cart">
+      <ul>
+        {orderDetails.map(meal => <CartItem key={meal.id} {...meal} />)}
+      </ul>
+      <p className="cart-total">
+        <strong>
+          {currencyFormatter.format(totalPrice)}
+        </strong>
+      </p>
       <p className="cart-total">
         <Button textOnly onClick={handleHideCart}>
           Close
         </Button>
-        <Button textOnly={false} onClick={handleCheckout}>
-          {" "}
-          Checkout
-        </Button>
-      </p>
-    );
-  }
-  return (
-    <Modal
-      open={progress === "cart"}
-      className="cart"
-      modalActions={modalActions}
-      onClose={handleHideCart}
-    >
-      <ul>
-        {orderDetails.map((meal) => (
-          <CartItem key={meal.id} {...meal} />
-        ))}
-      </ul>
-      <p className="cart-total">
-        <strong>{currencyFormatter.format(totalPrice)}</strong>
+        {orderDetails.length > 0 &&
+          <Button textOnly={false} onClick={handleShowCheckout}>
+            {" "}Checkout
+          </Button>}
       </p>
     </Modal>
   );

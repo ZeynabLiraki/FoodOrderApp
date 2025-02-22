@@ -3,14 +3,14 @@ import { BaseURL } from "./Urls";
 
 export const instanceFood = axios.create({
   baseURL: BaseURL,
-  headers: { "Content-Type": "application/json" },
+  headers: { "Content-Type": "application/json" }
 });
 
 instanceFood.interceptors.response.use(
-  (response) => {
+  response => {
     return response.data;
   },
-  (error) => {
+  error => {
     if (isAxiosError(error)) {
       console.log("Error: ", error.message);
       return Promise.reject(error);

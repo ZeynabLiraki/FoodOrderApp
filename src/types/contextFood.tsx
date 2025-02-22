@@ -13,6 +13,7 @@ export type InitialContextValue = {
   orderDetails: OrderDetails;
   addToCart: (item: MealSelected) => void;
   updateCartItem: (id: string, value: number) => void;
+  clearCart: () => void;
 };
 
 export type FoodContextProviderProps = {
@@ -34,7 +35,11 @@ export type UpdateCartAction = {
   };
 };
 
-export type FoodAction = AddToCartAction | UpdateCartAction;
+export type CleanCart = {
+  type: "CLEAR_CART";
+};
+
+export type FoodAction = AddToCartAction | UpdateCartAction | CleanCart;
 
 export type UserProgressContextProps = {
   progress: string;

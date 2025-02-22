@@ -1,25 +1,22 @@
-import { useEffect, useState } from "react";
-import { TotalMealsProps } from "../types/modules";
+
 import Product from "./Product";
-import { instanceFood } from "../services/Services";
-import { TotalMeals } from "../services/Urls";
+
+import { useGetMeals } from "../utils/queries";
+import ErrorPage from "./ErrorPage";
 
 export default function Products() {
-  const [totalMealsList, setTotalMealsList] = useState<TotalMealsProps>([]);
+  const { data, isError, isPending, error } = useGetMeals();
 
-  useEffect(() => {
-    async function FetchTotalMeal() {
-      const response = (await instanceFood.get(TotalMeals)) as TotalMealsProps;
-      setTotalMealsList(response);
-    }
-    FetchTotalMeal();
-  }, []);
-
+  if (isPending) {
+    return <div style={{textAlign:"center"}}>Fetching Meals...</div>;
+  }
+  if (isError) {
+    return <ErrorPage title="Faild to load Meals" message={error.message}/>
+   
+  }
   return (
     <ul id="meals">
-      {totalMealsList.map((meal) => (
-        <Product key={meal.id} {...meal} />
-      ))}
+      {data?.map(meal => <Product key={meal.id} {...meal} />)}
     </ul>
   );
 }

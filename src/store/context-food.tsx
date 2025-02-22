@@ -46,6 +46,9 @@ function foodReducerFn(state: OrderDetails, action: FoodAction) {
 
       return [...totalSelectedMeals];
     }
+    case "CLEAR_CART":{
+      return []
+    }
     default:
       return state;
   }
@@ -72,10 +75,14 @@ export default function FoodContextProvider({
     });
   };
 
+  const clearCart=()=>{
+    foodDistatch({type:"CLEAR_CART"})
+  }
   const contextValue: InitialContextValue = {
     orderDetails: mealDetails,
     addToCart,
     updateCartItem,
+    clearCart
   };
   return (
     <FoodContext.Provider value={contextValue}>{children}</FoodContext.Provider>
